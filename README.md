@@ -1,2 +1,67 @@
-# P_Prod
-Projet de gestion de stock pour l'ETML
+# 📦 Dashboard d’emprunt de matériels (hardware)
+
+Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, permettant l’ajout, le référencement et la gestion de chaque équipement via un identifiant unique et un QR code.
+
+---
+
+## ✅ Fonctionnalités mises en place
+
+- **Création d’un formulaire d’ajout de matériel** côté frontend avec Next.js :
+  - Champs : `hardware_id`, `name`, `category`, `supplier`, `room_number`, `location`, etc.
+  - Validation des champs côté client.
+
+- **API backend en PHP (`addhardware.php`)** :
+  - Traitement des requêtes POST.
+  - Vérification du `hardware_id` (unicité, format, longueur).
+  - Génération automatique d’un identifiant unique si absent.
+  - Insertion sécurisée des données dans la base de données (avec PDO).
+
+- **Correspondance des noms aux identifiants en base** :
+  - Conversion des noms (`category`, `supplier`, `location`) en `id_category`, `id_supplier`, etc.
+  - Gestion des erreurs si des noms ne sont pas reconnus.
+
+- **Génération automatique de QR codes** :
+  - Création d’un QR code pour chaque matériel ajouté (contenant le `hardware_id`).
+  - Enregistrement du QR code au format `.png` sur le serveur.
+
+- **Réponse JSON standardisée** côté backend :
+  - Retour clair de l’état de la requête (`success`, `error`, données, messages…).
+
+- **Ajout et gestion du champ `room_number`** :
+  - Intégré au formulaire Next.js et inséré dans la base de données via l’API PHP.
+
+- **Tests, débogages et amélioration de l’UX** :
+  - Gestion des erreurs côté frontend et backend.
+  - Tests fonctionnels pour assurer la robustesse du système.
+
+---
+
+## 🧰 Technologies utilisées
+
+### Frontend
+- **Next.js** (React)
+- **TypeScript** *(optionnel selon composants)*
+- **React Hook Form** – gestion et validation de formulaire
+- **Tailwind CSS** – stylisation
+
+### Backend
+- **PHP** (procédural)
+- **MariaDB** – base de données relationnelle
+- **PDO** – requêtes SQL sécurisées
+- **phpqrcode** – génération de QR codes
+
+### Divers
+- **JSON** – format d’échange frontend/backend
+- **Git & GitHub Desktop** – gestion de version
+- *(Tests API via Postman ou outil équivalent)*
+
+---
+
+## 📌 Objectif du projet
+
+Permettre aux utilisateurs (ou gestionnaires) d’ajouter rapidement des matériels dans une base centralisée, avec génération automatique d’un QR code pour chaque équipement, afin de faciliter le suivi, l’identification physique et la gestion des emprunts.
+
+---
+
+## 📂 Structure recommandée
+
