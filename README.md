@@ -23,10 +23,19 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
   - Affichage de tous les composants hardwares de sa table sur le front-end.
   - Récupération sécurisée des données via un proxy de sécurité (NextJS) mis en place du coté du dossier "Front-End".
 
+- **API backend en PHP (`addhardware`)** :
+
+ **Position : FrontEnd/api/secure-proxy/add/route.ts**
+  - Traitement des requêtes CRUD de type POST.
+  - Récupère les inputs du formulaire pour les retransmettre à la fonction PHP en Back-End
+  - Sécurisation de la logique Back-End PHP en intégrant une fonctionnalité intermédiaire gérée par le back-end NextJS
+  - Se charge d'appeler la fonction PHP installée en back-end chargée d'ajouter une entrée d'élément hardware
+
 - **API backend en NEXTJS (`get-locations`, `get-categories`, `get-manufacturers`)** :
 
   **Position : FrontEnd/api/secure-proxy/get/**
-  - Cache la logique Back-End PHP en intégrant une fonctionnalité intermédiaire gérée par le back-end de NextJS qui se charge d'appeler les fonctions PHP exécutant les récupérations de données
+  - Cache la logique Back-End PHP en intégrant une fonctionnalité intermédiaire gérée par le back-end de NextJS
+  - Se charge d'appeler les fonctions PHP exécutant les récupérations de données
 
 - **Correspondance des noms aux identifiants en base** :
   - Conversion des noms (`category`, `manufacturer`, `location`) en `category_id`, `manufacturer_id`, etc.
