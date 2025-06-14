@@ -11,10 +11,25 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
   - Validation des champs côté client.
 
 - **API backend en PHP (`addhardware.php`)** :
-  - Traitement des requêtes POST.
+  - Traitement des requêtes CRUD de type POST.
   - Vérification du `hardware_id` (unicité, format, longueur).
   - Génération automatique d’un identifiant unique si absent.
   - Insertion sécurisée des données dans la base de données (avec PDO).
+
+- **API backend en PHP (`gethardware.php`)** :
+  - Traitement des requêtes CRUD de type GET.
+  - Affichage de tous les composants hardwares de sa table sur le front-end.
+  - Récupération sécurisée des données via un proxy de sécurité (NextJS) mis en place du coté du dossier "Front-End".
+
+- **API backend en PHP (`get-categories.php`)** :
+  - Traitement des requêtes CRUD de type GET.
+  - Génération automatique d’un identifiant unique si absent.
+  - Récupération sécurisée des données via un proxy de sécurité (NextJS) mis en place du coté du dossier "Front-End".
+
+- **API backend en PHP (`get-locations.php`)** :
+  - Traitement des requêtes CRUD de type GET.
+  - Génération automatique d’un identifiant unique si absent.
+  - Récupération sécurisée des données via un proxy de sécurité (NextJS) mis en place du coté du dossier "Front-End".
 
 - **Correspondance des noms aux identifiants en base** :
   - Conversion des noms (`category`, `manufacturer`, `location`) en `category_id`, `manufacturer_id`, etc.
