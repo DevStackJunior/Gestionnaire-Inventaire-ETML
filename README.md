@@ -85,7 +85,7 @@ Permettre aux utilisateurs (ou gestionnaires) d’ajouter rapidement des matéri
 - Aucune sécurisation nécessaire des API Endpoint
   ➡️ *Les endpoints ne sont pas exposés sur le Web (usage strictement local)*
 
-## 🚧 Prochaines améliorations (suggestions)
+## 🚧 Prochaines étapes de développement
 
 - Authentification des utilisateurs (gestion des rôles).
 - Dashboard de visualisation des matériels empruntés/disponibles.
