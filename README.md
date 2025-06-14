@@ -7,7 +7,7 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
 ## ✅ Fonctionnalités mises en place
 
 - **Création d’un formulaire d’ajout de matériel** côté frontend avec Next.js :
-  - Champs : `hardware_id`, `name`, `category`, `supplier`, `room_number`, `location`, etc.
+  - Champs : `hardware_id`, `name`, `price`, `brand`, `yearOfPurchase`, `category`, `manufacturer`, `location`, etc.
   - Validation des champs côté client.
 
 - **API backend en PHP (`addhardware.php`)** :
@@ -17,7 +17,7 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
   - Insertion sécurisée des données dans la base de données (avec PDO).
 
 - **Correspondance des noms aux identifiants en base** :
-  - Conversion des noms (`category`, `supplier`, `location`) en `id_category`, `id_supplier`, etc.
+  - Conversion des noms (`category`, `manufacturer`, `location`) en `category_id`, `manufacturer_id`, etc.
   - Gestion des erreurs si des noms ne sont pas reconnus.
 
 - **Génération automatique de QR codes** :
@@ -56,13 +56,13 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
 ### Divers
 - **JSON** – format d’échange frontend/backend
 - **Git & GitHub Desktop** – gestion de version
-- *(Tests API via Postman ou outil équivalent)*
+- *(Tests API via Postman | POST Method)*
 
 ---
 
 ## 📌 Objectif du projet
 
-Permettre aux utilisateurs (ou gestionnaires) d’ajouter rapidement des matériels dans une base centralisée, avec génération automatique d’un QR code pour chaque équipement, afin de faciliter le suivi, l’identification physique et la gestion des emprunts.
+Permettre aux utilisateurs (ou gestionnaires) d’ajouter rapidement des matériels dans une base centralisée, avec génération automatique d’un QR code pour chaque équipement, afin de faciliter le suivi, l’identification physique et la gestion des emprunts. Lors de l'ajout, une impression automatique du QR Code sur les étiquettes via une imprimante portable P-Touch Printer s'effectue. 
 
 ---
 
