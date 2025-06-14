@@ -16,7 +16,7 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
   - Génération automatique d’un identifiant unique si absent.
   - Insertion sécurisée des données dans la base de données (avec PDO).
 
-- **API backend en PHP (`gethardware.php`, `get-categories.php`, `get-locations.php`, `get-manufacturers`)** :
+- **API backend en PHP (`gethardware.php`, `get-categories.php`, `get-locations.php`, `get-manufacturers.php`)** :
   **Position : BackEnd/api/**
   - Traitement des requêtes CRUD de type GET.
   - Affichage de tous les composants hardwares de sa table sur le front-end.
