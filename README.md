@@ -27,8 +27,11 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
 - **Réponse JSON standardisée** côté backend :
   - Retour clair de l’état de la requête (`success`, `error`, données, messages…).
 
-- **Ajout et gestion du champ `room_number`** :
-  - Intégré au formulaire Next.js et inséré dans la base de données via l’API PHP.
+- **Ajout et gestion des champs `location` `manufacturer` `category`** :
+    Intégré au formulaire Next.js et inséré dans la base de données via l’API PHP.
+  - location : permet de connaître où le hardware se situe en temps normal (lorsque non-empreinté)
+  - manufacturer : permet de connaître la marque du fabricant de l'hardware
+  - category : représente la catégorie du hardware (laptop, PC de bureau, serveur)
 
 - **Tests, débogages et amélioration de l’UX** :
   - Gestion des erreurs côté frontend et backend.
