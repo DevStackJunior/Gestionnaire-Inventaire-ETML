@@ -27,7 +27,7 @@ Lors de l'ajout, une impression automatique du QR Code sur les étiquettes via u
 
 - **Tests, débogages et amélioration de l’UX** :
   - Gestion des erreurs côté client.
-  - Prévisualisation et retour utilisateur.
+  - Prévisualisation et retour utilisateur (professeur).
 
 ---
 
