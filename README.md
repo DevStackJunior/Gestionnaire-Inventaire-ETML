@@ -63,5 +63,11 @@ Permettre aux utilisateurs (ou gestionnaires) d’ajouter rapidement des matéri
 
 ---
 
-## 📂 Structure recommandée
+## ⚙️ Contraintes techniques
+
+- 🔹 **Liaison d'un serveur local ↔️ Dashboard (Front-End Website)**
+- 🔹 **Chaque partie (back + front) est hébergée localement sur le même serveur**
+- 🔹 **Aucune sécurisation nécessaire des API Endpoint**
+  ➡️ *Les endpoints ne sont pas exposés sur le Web (usage strictement local)*
+
 
