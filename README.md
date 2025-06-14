@@ -4,59 +4,79 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
 
 ---
 
+## 📌 Objectif du projet
+
+Permettre aux utilisateurs (ou gestionnaires) d’ajouter rapidement des matériels dans une base centralisée, avec génération automatique d’un QR code pour chaque équipement, afin de faciliter le suivi, l’identification physique et la gestion des emprunts.  
+Lors de l'ajout, une impression automatique du QR Code sur les étiquettes via une imprimante portable **P-Touch Printer** s'effectue.
+
+---
+
 ## ✅ Fonctionnalités mises en place
 
-- **Création d’un formulaire d’ajout de matériel** côté frontend avec Next.js :
+### 🎯 Frontend – Next.js
+
+- **Création d’un formulaire d’ajout de matériel** :
   - Champs : `hardware_id`, `name`, `price`, `brand`, `yearOfPurchase`, `category`, `manufacturer`, `location`, etc.
-  - Validation des champs côté client.
+  - Validation dynamique via **React Hook Form**.
 
-- **API backend en PHP (`addhardware.php`)** :
-  - Traitement des requêtes CRUD de type POST.
-  - Vérification du `hardware_id` (unicité, format, longueur).
-  - Génération automatique d’un identifiant unique si absent.
-  - Insertion sécurisée des données dans la base de données (avec PDO).
-
-- **API backend en PHP (`gethardware.php`, `get-categories.php`, `get-locations.php`, `get-manufacturers.php`)** :
-
-   **Position : BackEnd/api/**
-  - Traitement des requêtes CRUD de type GET.
-  - Affichage de tous les composants hardwares de sa table sur le front-end.
-  - Récupération sécurisée des données via un proxy de sécurité (NextJS) mis en place du coté du dossier "Front-End".
-
-- **API backend en PHP (`addhardware`)** :
-
- **Position : FrontEnd/api/secure-proxy/add/route.ts**
-  - Traitement des requêtes CRUD de type POST.
-  - Récupère les inputs du formulaire pour les retransmettre à la fonction PHP en Back-End
-  - Sécurisation de la logique Back-End PHP en intégrant une fonctionnalité intermédiaire gérée par le back-end NextJS
-  - Se charge d'appeler la fonction PHP installée en back-end chargée d'ajouter une entrée d'élément hardware
-
-- **API backend en NEXTJS (`get-locations`, `get-categories`, `get-manufacturers`)** :
-
-  **Position : FrontEnd/api/secure-proxy/get/**
-  - Cache la logique Back-End PHP en intégrant une fonctionnalité intermédiaire gérée par le back-end de NextJS
-  - Se charge d'appeler les fonctions PHP exécutant les récupérations de données
-
-- **Correspondance des noms aux identifiants en base** :
-  - Conversion des noms (`category`, `manufacturer`, `location`) en `category_id`, `manufacturer_id`, etc.
-  - Gestion des erreurs si des noms ne sont pas reconnus.
-
-- **Génération automatique de QR codes** :
-  - Création d’un QR code pour chaque matériel ajouté (contenant le `hardware_id`).
-  - Enregistrement du QR code au format `.png` sur le serveur.
-
-- **Réponse JSON standardisée** côté backend :
-  - Retour clair de l’état de la requête (`success`, `error`, données, messages…).
-
-- **Ajout et gestion des champs `location` `manufacturer` `category`** :
-    Intégré au formulaire Next.js et inséré dans la base de données via l’API PHP.
-  - location : permet de connaître où le hardware se situe en temps normal (lorsque non-empreinté)
-  - manufacturer : permet de connaître la marque du fabricant de l'hardware
-  - category : représente la catégorie du hardware (laptop, PC de bureau, serveur)
+- **Ajout et gestion des champs `location`, `manufacturer`, `category`** :
+  - Ces champs sont intégrés au formulaire et insérés en base via API.
+    - `location` : lieu de stockage par défaut.
+    - `manufacturer` : fabricant.
+    - `category` : type d'équipement (laptop, PC, serveur…).
 
 - **Tests, débogages et amélioration de l’UX** :
-  - Gestion des erreurs côté frontend et backend.
-  - Tests fonctionnels pour assurer la robustesse du système.
+  - Gestion des erreurs côté client.
+  - Prévisualisation et retour utilisateur.
+
+---
+
+### 🛠️ Backend – PHP + Proxy Next.js
+
+#### 📁 API PHP : `addhardware.php`
+- Traitement des requêtes POST.
+- Vérification du `hardware_id` (unicité, format).
+- Génération automatique si champ vide.
+- Insertion sécurisée dans **MariaDB** via **PDO**.
+
+#### 📁 API PHP : `gethardware.php`, `get-categories.php`, `get-locations.php`, `get-manufacturers.php`
+- Traitement des requêtes GET.
+- Retour des listes de catégories, localisations, fabricants, etc.
+- Affichage sur le frontend via appel indirect (proxy Next.js).
+
+#### 📁 API Proxy Next.js – POST  
+**Position : `FrontEnd/api/secure-proxy/add/route.ts`**
+- Transmet les données du formulaire vers l’API PHP.
+- Sert de couche d’abstraction entre le frontend et la logique PHP.
+
+#### 📁 API Proxy Next.js – GET  
+**Position : `FrontEnd/api/secure-proxy/get/`**
+- Appels intermédiaires vers les scripts PHP.
+- Cache la logique serveur PHP et améliore la sécurité interne.
+
+---
+
+### 🔄 Traitements communs
+
+- **Correspondance des noms aux identifiants en base** :
+  - Conversion automatique (`category` → `category_id`, etc.).
+  - Gestion des erreurs de correspondance.
+
+- **Génération automatique de QR codes** :
+  - Généré pour chaque matériel à l’aide de `phpqrcode`.
+  - Enregistrement en local au format `.png`.
+
+- **Réponse JSON standardisée** :
+  - Toutes les API renvoient un format unifié (`success`, `message`, `data`…).
+
+---
+
+## ⚙️ Contraintes techniques
+
+- 🔹 Liaison d'un **serveur local** ↔️ **Dashboard** (Frontend)
+- 🔹 Frontend et Backend stockés et exécutés **localement sur le même serveur**
+- 🔹 **Aucune sécurisation réseau requise**
+  ➡️ Usage strictement local, aucune exposition publique des API.
 
 ---
 
@@ -64,39 +84,27 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
 
 ### Frontend
 - **Next.js** (React)
-- **TypeScript** *(optionnel selon composants)*
-- **React Hook Form** – gestion et validation de formulaire
-- **Tailwind CSS** – stylisation
+- **TypeScript** *(optionnel)*
+- **React Hook Form**
+- **Tailwind CSS**
 
 ### Backend
 - **PHP** (procédural)
-- **MariaDB** – base de données relationnelle
-- **PDO** – requêtes SQL sécurisées
-- **phpqrcode** – génération de QR codes
+- **MariaDB**
+- **PDO** pour les requêtes SQL
+- **phpqrcode** (QR code)
 
 ### Divers
-- **JSON** – format d’échange frontend/backend
-- **Git & GitHub Desktop** – gestion de version
-- *(Tests API via Postman | POST Method)*
+- **JSON** pour l'échange de données
+- **Git & GitHub Desktop** – versionning
+- **Postman** *(tests des méthodes POST)*
 
 ---
-
-## 📌 Objectif du projet
-
-Permettre aux utilisateurs (ou gestionnaires) d’ajouter rapidement des matériels dans une base centralisée, avec génération automatique d’un QR code pour chaque équipement, afin de faciliter le suivi, l’identification physique et la gestion des emprunts. Lors de l'ajout, une impression automatique du QR Code sur les étiquettes via une imprimante portable P-Touch Printer s'effectue. 
-
----
-
-## ⚙️ Contraintes techniques
-
-- Liaison d'un serveur local ↔️ Dashboard (Front-End Website)
-- Chaque partie (back + front) est hébergée localement sur le même serveur
-- Aucune sécurisation nécessaire des API Endpoint
-  ➡️ *Les endpoints ne sont pas exposés sur le Web (usage strictement local)*
 
 ## 🚧 Prochaines étapes de développement
 
-- Authentification des utilisateurs (gestion des rôles).
-- Dashboard de visualisation des matériels empruntés/disponibles.
-- Historique des emprunts et retours.
-- Recherche et filtrage dans la base de données.
+- 🔐 Authentification des utilisateurs (avec rôles)
+- 📊 Dashboard de suivi des matériels disponibles/empruntés
+- 📁 Historique complet des emprunts/retours
+- 🔎 Recherche et filtrage intelligent dans la base
+
