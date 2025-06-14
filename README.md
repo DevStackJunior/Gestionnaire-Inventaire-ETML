@@ -16,20 +16,15 @@ Ce projet est un dashboard de gestion d’emprunt et de suivi de matériels, per
   - Génération automatique d’un identifiant unique si absent.
   - Insertion sécurisée des données dans la base de données (avec PDO).
 
-- **API backend en PHP (`gethardware.php`)** :
+- **API backend en PHP (`gethardware.php`, `get-categories.php`, `get-locations.php`, `get-manufacturers`)** :
+  **Position : BackEnd/api/**
   - Traitement des requêtes CRUD de type GET.
   - Affichage de tous les composants hardwares de sa table sur le front-end.
   - Récupération sécurisée des données via un proxy de sécurité (NextJS) mis en place du coté du dossier "Front-End".
 
-- **API backend en PHP (`get-categories.php`)** :
-  - Traitement des requêtes CRUD de type GET.
-  - Génération automatique d’un identifiant unique si absent.
-  - Récupération sécurisée des données via un proxy de sécurité (NextJS) mis en place du coté du dossier "Front-End".
-
-- **API backend en PHP (`get-locations.php`)** :
-  - Traitement des requêtes CRUD de type GET.
-  - Génération automatique d’un identifiant unique si absent.
-  - Récupération sécurisée des données via un proxy de sécurité (NextJS) mis en place du coté du dossier "Front-End".
+- **API backend en NEXTJS (`get-locations`, `get-categories`, `get-manufacturers`)** :
+  **Position : FrontEnd/api/secure-proxy/get/**
+  - Cache la logique Back-End PHP en intégrant une fonctionnalité intermédiaire gérée par le back-end de NextJS qui se charge d'appeler les fonctions PHP exécutant les récupérations de données
 
 - **Correspondance des noms aux identifiants en base** :
   - Conversion des noms (`category`, `manufacturer`, `location`) en `category_id`, `manufacturer_id`, etc.
@@ -83,9 +78,14 @@ Permettre aux utilisateurs (ou gestionnaires) d’ajouter rapidement des matéri
 
 ## ⚙️ Contraintes techniques
 
-- 🔹 **Liaison d'un serveur local ↔️ Dashboard (Front-End Website)**
-- 🔹 **Chaque partie (back + front) est hébergée localement sur le même serveur**
-- 🔹 **Aucune sécurisation nécessaire des API Endpoint**
+- Liaison d'un serveur local ↔️ Dashboard (Front-End Website)
+- Chaque partie (back + front) est hébergée localement sur le même serveur
+- Aucune sécurisation nécessaire des API Endpoint
   ➡️ *Les endpoints ne sont pas exposés sur le Web (usage strictement local)*
 
+## 🚧 Prochaines améliorations (suggestions)
 
+- Authentification des utilisateurs (gestion des rôles).
+- Dashboard de visualisation des matériels empruntés/disponibles.
+- Historique des emprunts et retours.
+- Recherche et filtrage dans la base de données.
